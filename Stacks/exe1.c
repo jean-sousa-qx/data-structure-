@@ -1,46 +1,41 @@
 #include "stack.c"
+#include <stdio.h>
 
-
-int main(){
-
-    int x, z; 
-    printf("Insira a quantidade de numeros: ");
+int main() {
+    int x, z;
+    printf("Insira a quantidade de números: ");
     scanf("%d", &x);
+
     Stack A = stack(x);
-    Stack B = stack(x);
+    Stack B = stack(x); 
 
-    puts("Insira os valores");
-    scanf("%d", &z);
-    push(z, A);
-
-    for (int i = 0; i < x - 1 ; i++)
-    {
+    puts("Insira os valores:");
+    for (int i = 0; i < x; i++) {
         scanf("%d", &z);
-        if (z > peek(A))
-            push(z, A);
-        else
-        {
-            while (!empty(A))
-            {
-                push(pop(A), B);
-            }
-            push(z, A);
-          while (!empty(B))
-            {
-                push(pop(B), A);
-            }
-        }
-    }
 
-    for (int i = 0; i <  5; i++){
-        while (!empty(A))
-        {
+        while (!empty(A) && peek(A) > z) {
             push(pop(A), B);
         }
-        printf("%d ", pop(B));
+        push(z, A);
+        while (!empty(B)) {
+            push(pop(B), A);
+        }
     }
 
+    while (!empty(A))
+    {
+        push(pop(A), B);
+    }
+    
+    printf("Elementos ordenados em forma crescente: ");
+    
+    while(!empty(B))
+        printf("%d ", pop(B));
+    
     printf("\n");
 
-     return 0;
+    destroy(&A);
+    destroy(&B);
+
+    return 0;
 }
