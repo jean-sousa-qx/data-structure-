@@ -24,14 +24,15 @@ int main() {
 
     while (!empty(A))
     {
-        push(pop(A), B);
+        int temp = pop(A); 
+            if(!empty(A) && temp == peek(A))
+                continue;
+        
+        printf("%d " , temp);
     }
     
-    printf("Elementos ordenados em forma crescente: ");
-    
-    while(!empty(B))
-        printf("%d ", pop(B));
-    
+
+
     printf("\n");
 
     destroy(&A);
